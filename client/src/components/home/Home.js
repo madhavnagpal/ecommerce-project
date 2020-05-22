@@ -6,6 +6,7 @@ export class Home extends Component {
       <div>
         <h2>home</h2>
         <h2>home</h2>
+        <h2>home</h2>
       </div>
     );
   }
