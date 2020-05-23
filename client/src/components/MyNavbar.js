@@ -34,8 +34,12 @@ export default function MyNavbar() {
   );
 }
 const gradStyle = {
-  backgroundImage: "linear-gradient(90deg,#081525,#0d2330)",
+  // backgroundImage: "linear-gradient(90deg,,#00a1ab)",
   color: "white",
+  zIndex: "3",
+  background: "rgb(2,0,36)",
+  background:
+    "linear-gradient(90deg, rgba(2,0,36,1) 0%, rgba(5,3,67,1) 13%, rgba(8,7,106,1) 29%, rgba(9,9,121,1) 35%, rgba(8,25,131,1) 40%, rgba(7,59,154,1) 51%, rgba(6,81,168,1) 58%, rgba(5,106,185,1) 66%, rgba(3,140,208,1) 77%, rgba(2,168,226,1) 86%, rgba(1,199,247,1) 96%, rgba(0,212,255,1) 100%)",
 };
 
 const StyledLink = styled(Link)`
