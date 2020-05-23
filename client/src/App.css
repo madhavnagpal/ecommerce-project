@@ -1,11 +1,4 @@
-@font-face {
-  font-family: "Ubuntu";
-  src: url("/font/Ubuntu-Regular.woff2") format("woff2"),
-    url("/font/Ubuntu-Regular.woff") format("woff");
-  font-weight: normal;
-  font-style: normal;
-}
-
 * {
-  font-family: "Ubuntu";
+  font-family: "Lucida Sans", "Lucida Sans Regular", "Lucida Grande",
+    "Lucida Sans Unicode", Geneva, Verdana, sans-serif;
 }

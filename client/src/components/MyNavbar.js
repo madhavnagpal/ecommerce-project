@@ -4,8 +4,8 @@ import styled from "styled-components";
 
 export default function MyNavbar() {
   return (
-    <nav className="navbar navbar-expand-lg bg-dark text-light navbar-dark">
-      <h4 className="my-2 ml-4">MERN Stack Product</h4>
+    <nav className="navbar navbar-expand-lg navbar-dark" style={gradStyle}>
+      <h4 className="my-2 ml-4">E-Commerce Product</h4>
       <button
         className="navbar-toggler"
         type="button"
@@ -15,7 +15,7 @@ export default function MyNavbar() {
         aria-expanded="false"
         aria-label="Toggle navigation"
       >
-        <span className="navbar-toggler-icon"></span>
+        <span className="navbar-toggler-icon" style={{ color: "white" }}></span>
       </button>
       <div className="collapse navbar-collapse " id="navbarNav">
         <ul className="navbar-nav text-center ml-auto">
@@ -33,6 +33,10 @@ export default function MyNavbar() {
     </nav>
   );
 }
+const gradStyle = {
+  backgroundImage: "linear-gradient(90deg,#081525,#0d2330)",
+  color: "white",
+};
 
 const StyledLink = styled(Link)`
   color: white;
