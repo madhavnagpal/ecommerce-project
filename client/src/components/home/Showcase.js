@@ -36,13 +36,13 @@ const overlay = {
 };
 const textOverlay = {
   position: "absolute",
-  top: "300px",
-  right: "10px",
+  top: "330px",
+  right: "100px",
+  marginLeft: "100px",
   color: "#fff",
   fontSize: "1.4rem",
   zIndex: "4",
-  padding: "20px",
-  marginRight: "5%",
+  padding: "30px",
   backgroundColor: "#00909e",
   borderRadius: "10px",
 };
