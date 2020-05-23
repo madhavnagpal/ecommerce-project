@@ -1,0 +1,33 @@
+.timeline {
+  list-style-type: none;
+  width: 80%;
+  max-width: 800px;
+  margin: 50px auto;
+  font-size: 1.5rem;
+  margin-top: 100px;
+}
+li {
+  position: relative;
+}
+li > span {
+  font-size: 2rem;
+  background-color: #142850;
+  color: white;
+  padding: 6px 15px;
+  border-radius: 50%;
+  position: absolute;
+  top: -15px;
+  left: -23px;
+}
+.content {
+  background-color: #00909e;
+  color: white;
+  padding: 30px 30px;
+  border-left: solid #142850 3px;
+}
+li:last-child .content {
+  border-left: solid transparent 3px;
+}
+.content span {
+  font-size: 2rem;
+}

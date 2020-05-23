@@ -3,7 +3,7 @@ import React, { Component } from "react";
 export class Footer extends Component {
   render() {
     return (
-      <div className="bg-dark text-light" style={gradStyle}>
+      <div className="text-light" style={gradStyle}>
         <h2>footer</h2>
         <h2>footer</h2>
       </div>
@@ -11,7 +11,7 @@ export class Footer extends Component {
   }
 }
 const gradStyle = {
-  backgroundImage: "linear-gradient(90deg, 	#45046a,#95389e	)",
   color: "white",
+  backgroundColor: "#00909e",
 };
 export default Footer;

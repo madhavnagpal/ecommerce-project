@@ -19,7 +19,7 @@ export class Showcase extends Component {
 
 const parallaxStyle = {
   width: "100%",
-  height: "100vh",
+  height: "90vh",
   background: "url('/media/two-20.jpg')",
   backgroundAttachment: "fixed",
   backgroundSize: "cover",
@@ -27,20 +27,24 @@ const parallaxStyle = {
 };
 const overlay = {
   width: "100%",
-  height: "111vh",
+  height: "101vh",
   position: "absolute",
   top: "0",
   left: "0",
   zIndex: "2",
-  backgroundColor: "rgb(0,0,255,0.5)",
+  backgroundColor: "rgb(0,0,255,0.3)",
 };
 const textOverlay = {
   position: "absolute",
-  bottom: "50px",
-  right: "50px",
-  color: "white",
-  fontSize: "2rem",
+  top: "300px",
+  right: "10px",
+  color: "#fff",
+  fontSize: "1.4rem",
   zIndex: "4",
+  padding: "20px",
+  marginRight: "5%",
+  backgroundColor: "#00909e",
+  borderRadius: "10px",
 };
 
 export default Showcase;
