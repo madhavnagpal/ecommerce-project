@@ -1,5 +1,5 @@
 import React, { Component } from "react";
-import Showcase from "./Showcase";
+import Showcase from "./showcase/Showcase";
 import Timeline from "./timeline/Timeline";
 export class Home extends Component {
   render() {

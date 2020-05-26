@@ -36,7 +36,7 @@ export default function MyNavbar() {
 const gradStyle = {
   color: "white",
   zIndex: "3",
-  backgroundColor: "#00909e",
+  backgroundColor: "rgb(0, 0, 255)",
 };
 
 const StyledLink = styled(Link)`

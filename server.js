@@ -1,6 +1,12 @@
 const express = require("express");
 const app = express();
 const path = require("path");
+const { db, Products } = require("./database/db");
+
+app.get("/api/products", async (req, res) => {
+  const products = await Products.findAll();
+  res.status(200).send(products);
+});
 
 //server static assets if in production
 if (process.env.NODE_ENV === "production") {
@@ -12,4 +18,8 @@ if (process.env.NODE_ENV === "production") {
 }
 
 const PORT = process.env.PORT || 4000;
-app.listen(PORT, () => console.log(`server is running at port ${PORT}`));
+db.sync()
+  .then(() => {
+    app.listen(PORT, () => console.log(`server is running at port ${PORT}`));
+  })
+  .catch((e) => console.log(e));

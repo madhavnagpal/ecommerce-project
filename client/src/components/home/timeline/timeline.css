@@ -5,6 +5,10 @@
   margin: 50px auto;
   font-size: 1.5rem;
   margin-top: 100px;
+  background-color: rgb(0, 0, 255, 0.8);
+  padding: 30px;
+  padding-left: 50px;
+  border-radius: 50px;
 }
 li {
   position: relative;
@@ -16,13 +20,12 @@ li > span {
   padding: 6px 15px;
   border-radius: 50%;
   position: absolute;
-  top: -15px;
+  top: 0px;
   left: -23px;
 }
 .content {
-  background-color: #00909e;
+  padding-left: 50px;
   color: white;
-  padding: 30px 30px;
   border-left: solid #27496d 3px;
 }
 li:last-child .content {
