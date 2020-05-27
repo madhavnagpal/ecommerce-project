@@ -19,6 +19,7 @@ export default function Register() {
     let allErrors = [];
     setMessage("");
     setErrors(allErrors);
+    //getting input values
     let username = usernameRef.current.value,
       email = emailRef.current.value,
       password = passwordRef.current.value,
@@ -63,12 +64,13 @@ export default function Register() {
             msg = "This email has already been registered...";
           }
           setMessage(msg);
+          usernameRef.current.value = "";
+          emailRef.current.value = "";
+          passwordRef.current.value = "";
+          password2Ref.current.value = "";
         })
         .catch((e) => console.log(e));
-      usernameRef.current.value = "";
-      emailRef.current.value = "";
-      passwordRef.current.value = "";
-      password2Ref.current.value = "";
+
       return;
     }
   }
