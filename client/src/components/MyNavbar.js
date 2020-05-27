@@ -23,10 +23,10 @@ export default function MyNavbar() {
             <StyledLink to="/">Home</StyledLink>
           </li>
           <li className="nav-item">
-            <StyledLink to="/login">Login</StyledLink>
+            <StyledLink to="/products">Products</StyledLink>
           </li>
           <li className="nav-item">
-            <StyledLink to="/products">Products</StyledLink>
+            <StyledLink to="/login">Login</StyledLink>
           </li>
         </ul>
       </div>
