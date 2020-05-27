@@ -1,8 +1,9 @@
 import React from "react";
 import { Link } from "react-router-dom";
 import styled from "styled-components";
+import Conditional from "./login/Conditional";
 
-export default function MyNavbar() {
+export default function MyNavbar({ loggedInStatus }) {
   return (
     <nav className="navbar navbar-expand-lg navbar-dark" style={gradStyle}>
       <h4 className="my-2 ml-4">E-Commerce Product</h4>
@@ -25,9 +26,7 @@ export default function MyNavbar() {
           <li className="nav-item">
             <StyledLink to="/products">Products</StyledLink>
           </li>
-          <li className="nav-item">
-            <StyledLink to="/login">Login</StyledLink>
-          </li>
+          <Conditional loggedInStatus={loggedInStatus} />
         </ul>
       </div>
     </nav>

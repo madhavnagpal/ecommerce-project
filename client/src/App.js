@@ -7,11 +7,15 @@ import MyNavbar from "./components/MyNavbar";
 import Products from "./components/products/Products";
 import Login from "./components/login/Login";
 import Home from "./components/home/Home";
-import Footer from "./components/Footer";
+import Register from "./components/login/Register";
+import Logout from "./components/login/Logout";
 
 export default function App() {
   const [products, setProducts] = useState([]);
-  const [isLoggedIn, setLoginStatus] = useState(false);
+  const [loggedInStatus, setLoginStatus] = useState({
+    isLoggedIn: false,
+    name: "Guest",
+  });
 
   useEffect(() => {
     axios.get("/api/products").then((res) => {
@@ -20,20 +24,32 @@ export default function App() {
   }, []);
 
   return (
-    <Router>
-      <MyNavbar />
-      <Switch>
-        <Route exact path="/">
-          <Home />
-        </Route>
-        <Route path="/products">
-          <Products products={products} />
-        </Route>
-        <Route path="/login">
-          <Login />
-        </Route>
-      </Switch>
-      <Footer />
-    </Router>
+    <div className="bigBox">
+      <div className="smallBox">
+        <Router>
+          <MyNavbar loggedInStatus={loggedInStatus} />
+          <Switch>
+            <Route exact path="/">
+              <Home />
+            </Route>
+            <Route path="/products">
+              <Products products={products} />
+            </Route>
+            <Route path="/register">
+              <Register />
+            </Route>
+            <Route path="/logout">
+              <Logout />
+            </Route>
+            <Route path="/login">
+              <Login />
+            </Route>
+          </Switch>
+        </Router>
+      </div>
+      <div className="footer">
+        You Can Contact me via mr.madhavnagpal@gmail.com
+      </div>
+    </div>
   );
 }
