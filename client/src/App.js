@@ -21,7 +21,15 @@ export default function App() {
     axios.get("/api/products").then((res) => {
       setProducts(res.data);
     });
+    let localLoginStatus = JSON.parse(localStorage.getItem("loggedIn"));
+    if (localLoginStatus) {
+      setLoginStatus(localLoginStatus);
+    }
   }, []);
+
+  useEffect(() => {
+    localStorage.setItem("loggedIn", JSON.stringify(loggedInStatus));
+  }, [loggedInStatus]);
 
   return (
     <div className="bigBox">
@@ -39,10 +47,13 @@ export default function App() {
               <Register />
             </Route>
             <Route path="/logout">
-              <Logout />
+              <Logout
+                loggedInStatus={loggedInStatus}
+                setLoginStatus={setLoginStatus}
+              />
             </Route>
             <Route path="/login">
-              <Login />
+              <Login setLoginStatus={setLoginStatus} />
             </Route>
           </Switch>
         </Router>

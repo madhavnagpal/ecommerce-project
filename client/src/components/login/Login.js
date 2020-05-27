@@ -1,9 +1,12 @@
 import React, { useState, useRef } from "react";
+import { useHistory } from "react-router-dom";
 import Errors from "./Errors";
+import axios from "axios";
 
-export default function Login() {
+export default function Login({ setLoginStatus }) {
   const emailRef = useRef();
   const passwordRef = useRef();
+  const history = useHistory();
   const [errors, setErrors] = useState([]);
 
   function handleLogin(e) {
@@ -12,6 +15,7 @@ export default function Login() {
       password = passwordRef.current.value;
 
     let allErrors = [];
+    setErrors(allErrors);
 
     //fill all the fields
     if (!email || !password) {
@@ -28,7 +32,36 @@ export default function Login() {
     if (allErrors.length > 0) {
       return;
     } else {
-      console.log("pass");
+      axios
+        .post("/user/login", {
+          email,
+          password,
+        })
+        .then((res) => {
+          const { emailFound, passwordMatched } = res.data;
+
+          //logging in
+          if (emailFound && passwordMatched) {
+            setLoginStatus({
+              isLoggedIn: true,
+              name: res.data.username,
+            });
+            history.push("/");
+          } else if (emailFound) {
+            allErrors = [
+              ...allErrors,
+              { msg: "wrong password please try again..." },
+            ];
+            setErrors(allErrors);
+          } else {
+            allErrors = [
+              ...allErrors,
+              { msg: "this email is not registered, please register first" },
+            ];
+            setErrors(allErrors);
+          }
+        })
+        .catch((e) => console.log(e));
       return;
     }
   }

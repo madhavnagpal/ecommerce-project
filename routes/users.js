@@ -27,5 +27,27 @@ route.post("/register", async (req, res) => {
 
 /* login route for user to login in his account
    /login POST route */
-route.post("/login", async (req, res) => {});
+route.post("/login", async (req, res) => {
+  const { email, password } = req.body;
+  try {
+    let user = await Users.findOne({ where: { email } });
+
+    //user already exists
+    if (user) {
+      if (password == user.password) {
+        res.send({
+          emailFound: true,
+          passwordMatched: true,
+          username: user.username,
+        });
+      } else {
+        res.send({ emailFound: true, passwordMatched: false });
+      }
+    } else {
+      res.json({ emailFound: false, passwordMatched: false });
+    }
+  } catch (e) {
+    console.log(e);
+  }
+});
 module.exports = route;
