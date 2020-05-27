@@ -1,17 +1,24 @@
 import React, { useState, useRef } from "react";
 import Errors from "./Errors";
+import Message from "./Message";
 import axios from "axios";
 
 export default function Register() {
+  //inputs
   const usernameRef = useRef();
   const emailRef = useRef();
   const passwordRef = useRef();
   const password2Ref = useRef();
+  //states
   const [errors, setErrors] = useState([]);
+  const [message, setMessage] = useState("");
 
   function handelRegistration(e) {
     e.preventDefault();
+
     let allErrors = [];
+    setMessage("");
+    setErrors(allErrors);
     let username = usernameRef.current.value,
       email = emailRef.current.value,
       password = passwordRef.current.value,
@@ -42,7 +49,26 @@ export default function Register() {
     if (allErrors.length > 0) {
       return;
     } else {
-      console.log("pass");
+      axios
+        .post("/user/register", {
+          username,
+          email,
+          password,
+        })
+        .then((res) => {
+          let msg;
+          if (res.data.isRegistered) {
+            msg = "You have successfully registered, Now you can login";
+          } else {
+            msg = "This email has already been registered...";
+          }
+          setMessage(msg);
+        })
+        .catch((e) => console.log(e));
+      usernameRef.current.value = "";
+      emailRef.current.value = "";
+      passwordRef.current.value = "";
+      password2Ref.current.value = "";
       return;
     }
   }
@@ -52,6 +78,7 @@ export default function Register() {
       <div className="col-md-6 col-lg-5 m-auto">
         <div className="card card-body">
           <Errors errors={errors} />
+          <Message message={message} />
           <h1 className="text-center mb-3">
             <i className="fas fa-user-plus"></i> Register
           </h1>

@@ -1,12 +1,22 @@
 const express = require("express");
 const app = express();
 const path = require("path");
-const { db, Products } = require("./database/db");
 
+const { db, Products, Users } = require("./database/db");
+const userRoute = require("./routes/users");
+
+//body parser
+app.use(express.json());
+app.use(express.urlencoded({ extended: true }));
+
+//GET all products from db
 app.get("/api/products", async (req, res) => {
   const products = await Products.findAll();
   res.status(200).send(products);
 });
+
+//all /user routes
+app.use("/user", userRoute);
 
 //server static assets if in production
 if (process.env.NODE_ENV === "production") {
