@@ -1,32 +1,21 @@
-import React, { useState, useRef } from "react";
+import React, { useState } from "react";
 import { useHistory } from "react-router-dom";
 import Errors from "./Errors";
 import axios from "axios";
 
 export default function Login({ setLoginStatus }) {
-  const emailRef = useRef();
-  const passwordRef = useRef();
+  //my lovely hooks
+  const emailForm = useFormInput("");
+  const passwordForm = useFormInput("");
   const history = useHistory();
   const [errors, setErrors] = useState([]);
 
   function handleLogin(e) {
     e.preventDefault();
-    let email = emailRef.current.value,
-      password = passwordRef.current.value;
+    const email = emailForm.value,
+      password = passwordForm.value;
 
-    let allErrors = [];
-    setErrors(allErrors);
-
-    //fill all the fields
-    if (!email || !password) {
-      allErrors = [...allErrors, { msg: "please fill all the fields !" }];
-    }
-
-    //email validation
-    const re = /^(([^<>()[\]\\.,;:\s@\"]+(\.[^<>()[\]\\.,;:\s@\"]+)*)|(\".+\"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
-    if (!re.test(email)) {
-      allErrors = [...allErrors, { msg: "please enter a valid email" }];
-    }
+    let allErrors = formValidations(email, password);
     setErrors(allErrors);
 
     if (allErrors.length > 0) {
@@ -46,7 +35,7 @@ export default function Login({ setLoginStatus }) {
               isLoggedIn: true,
               name: res.data.username,
             });
-            history.push("/");
+            history.push("/logout");
           } else if (emailFound) {
             allErrors = [
               ...allErrors,
@@ -79,7 +68,7 @@ export default function Login({ setLoginStatus }) {
               <label>Email</label>
               <input
                 type="email"
-                ref={emailRef}
+                {...emailForm}
                 className="form-control"
                 placeholder="Enter Email"
               />
@@ -88,7 +77,7 @@ export default function Login({ setLoginStatus }) {
               <label>Password</label>
               <input
                 type="password"
-                ref={passwordRef}
+                {...passwordForm}
                 className="form-control"
                 placeholder="Enter Password"
               />
@@ -104,4 +93,30 @@ export default function Login({ setLoginStatus }) {
       </div>
     </div>
   );
+}
+
+function useFormInput(initialValue) {
+  const [value, setValue] = useState(initialValue);
+  function handleChange(e) {
+    setValue(e.target.value);
+  }
+  return {
+    value,
+    onChange: handleChange,
+  };
+}
+
+function formValidations(email, password) {
+  let allErrors = [];
+  //fill all the fields
+  if (!email || !password) {
+    allErrors = [...allErrors, { msg: "please fill all the fields !" }];
+  }
+
+  //email validation
+  const re = /^(([^<>()[\]\\.,;:\s@\"]+(\.[^<>()[\]\\.,;:\s@\"]+)*)|(\".+\"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
+  if (!re.test(email)) {
+    allErrors = [...allErrors, { msg: "please enter a valid email" }];
+  }
+  return allErrors;
 }

@@ -1,50 +1,32 @@
-import React, { useState, useRef } from "react";
+import React, { useState } from "react";
 import Errors from "./Errors";
 import Message from "./Message";
 import axios from "axios";
 
 export default function Register() {
-  //inputs
-  const usernameRef = useRef();
-  const emailRef = useRef();
-  const passwordRef = useRef();
-  const password2Ref = useRef();
+  /*  
+      inputs   */
+  const usernameForm = useFormInput("");
+  const emailForm = useFormInput("");
+  const passwordForm = useFormInput("");
+  const password2Form = useFormInput("");
+
   //states
-  const [errors, setErrors] = useState([]);
   const [message, setMessage] = useState("");
+  const [errors, setErrors] = useState([]);
 
   function handelRegistration(e) {
     e.preventDefault();
 
-    let allErrors = [];
+    //value initializations
+    const username = usernameForm.value,
+      email = emailForm.value,
+      password = passwordForm.value,
+      password2 = password2Form.value;
     setMessage("");
-    setErrors(allErrors);
-    //getting input values
-    let username = usernameRef.current.value,
-      email = emailRef.current.value,
-      password = passwordRef.current.value,
-      password2 = password2Ref.current.value;
 
-    //fill all the fields
-    if (!username || !email || !password || !password2) {
-      allErrors = [...allErrors, { msg: "please fill all the fields !" }];
-    }
-    //passwords not matched
-    if (password !== password2) {
-      allErrors = [...allErrors, { msg: "passwords not matched" }];
-    }
-    //password length >6
-    if (password.length < 6) {
-      allErrors = [
-        ...allErrors,
-        { msg: "passwords must be minimum 6 character long" },
-      ];
-    }
-    //email validation
-    const re = /^(([^<>()[\]\\.,;:\s@\"]+(\.[^<>()[\]\\.,;:\s@\"]+)*)|(\".+\"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
-    if (!re.test(email)) {
-      allErrors = [...allErrors, { msg: "please enter a valid email" }];
-    }
+    //form validation
+    let allErrors = formValidations(username, email, password, password2);
     setErrors(allErrors);
 
     if (allErrors.length > 0) {
@@ -64,10 +46,10 @@ export default function Register() {
             msg = "This email has already been registered...";
           }
           setMessage(msg);
-          usernameRef.current.value = "";
-          emailRef.current.value = "";
-          passwordRef.current.value = "";
-          password2Ref.current.value = "";
+          usernameForm.setValue("");
+          emailForm.setValue("");
+          passwordForm.setValue("");
+          password2Form.setValue("");
         })
         .catch((e) => console.log(e));
 
@@ -89,7 +71,8 @@ export default function Register() {
               <label>Name</label>
               <input
                 type="name"
-                ref={usernameRef}
+                value={usernameForm.value}
+                onChange={usernameForm.onChange}
                 className="form-control"
                 placeholder="Enter Name"
               />
@@ -98,7 +81,8 @@ export default function Register() {
               <label>Email</label>
               <input
                 type="email"
-                ref={emailRef}
+                value={emailForm.value}
+                onChange={emailForm.onChange}
                 className="form-control"
                 placeholder="Enter Email"
               />
@@ -107,7 +91,8 @@ export default function Register() {
               <label>Password</label>
               <input
                 type="password"
-                ref={passwordRef}
+                value={passwordForm.value}
+                onChange={passwordForm.onChange}
                 className="form-control"
                 placeholder="Create Password"
               />
@@ -116,7 +101,8 @@ export default function Register() {
               <label>Confirm Password</label>
               <input
                 type="password"
-                ref={password2Ref}
+                value={password2Form.value}
+                onChange={password2Form.onChange}
                 className="form-control"
                 placeholder="Confirm Password"
               />
@@ -135,4 +121,45 @@ export default function Register() {
       </div>
     </div>
   );
+}
+
+// playing with user input
+
+function useFormInput(initialValue) {
+  const [value, setValue] = useState(initialValue);
+  function handleChange(e) {
+    setValue(e.target.value);
+  }
+  return {
+    value,
+    onChange: handleChange,
+    setValue,
+  };
+}
+
+//form validations function
+
+function formValidations(username, email, password, password2) {
+  let allErrors = [];
+  //fill all the fields
+  if (!username || !email || !password || !password2) {
+    allErrors = [...allErrors, { msg: "please fill all the fields !" }];
+  }
+  //passwords not matched
+  if (password !== password2) {
+    allErrors = [...allErrors, { msg: "passwords not matched" }];
+  }
+  //password length >6
+  if (password.length < 6) {
+    allErrors = [
+      ...allErrors,
+      { msg: "passwords must be minimum 6 character long" },
+    ];
+  }
+  //email validation
+  const re = /^(([^<>()[\]\\.,;:\s@\"]+(\.[^<>()[\]\\.,;:\s@\"]+)*)|(\".+\"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
+  if (!re.test(email)) {
+    allErrors = [...allErrors, { msg: "please enter a valid email" }];
+  }
+  return allErrors;
 }
