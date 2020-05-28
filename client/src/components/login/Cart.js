@@ -1,7 +1,7 @@
 import React from "react";
 import { useHistory } from "react-router-dom";
 
-export default function Logout({ loggedInStatus, setLoginStatus }) {
+export default function Cart({ loggedInStatus, setLoginStatus }) {
   const history = useHistory();
 
   function handleLogout(e) {

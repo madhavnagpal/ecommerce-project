@@ -109,7 +109,7 @@ export default function Register() {
             </div>
             <button
               onClick={handelRegistration}
-              className="btn btn-primary btn-block"
+              className="btn btn-danger btn-block"
             >
               Register
             </button>

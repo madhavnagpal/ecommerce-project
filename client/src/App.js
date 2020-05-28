@@ -3,12 +3,12 @@ import { BrowserRouter as Router, Switch, Route } from "react-router-dom";
 import axios from "axios";
 import "./App.css";
 
-import MyNavbar from "./components/MyNavbar";
+import MyNavbar from "./components/navbar/MyNavbar";
 import Products from "./components/products/Products";
 import Login from "./components/login/Login";
 import Home from "./components/home/Home";
 import Register from "./components/login/Register";
-import Logout from "./components/login/Logout";
+import Logout from "./components/login/Cart";
 
 export default function App() {
   const [products, setProducts] = useState([]);
@@ -46,7 +46,7 @@ export default function App() {
             <Route path="/register">
               <Register />
             </Route>
-            <Route path="/logout">
+            <Route path="/cart">
               <Logout
                 loggedInStatus={loggedInStatus}
                 setLoginStatus={setLoginStatus}

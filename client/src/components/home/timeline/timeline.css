@@ -2,21 +2,22 @@
   list-style-type: none;
   width: 80%;
   max-width: 800px;
-  margin: 50px auto;
+  margin: 70px auto;
   font-size: 1.5rem;
-  margin-top: 100px;
-  background-color: rgb(0, 0, 255, 0.8);
+  background-color: rgb(0, 0, 120);
   padding: 30px;
   padding-left: 50px;
   border-radius: 50px;
 }
 li {
   position: relative;
+  display: inline-block;
+  margin: 0;
 }
 li > span {
   font-size: 2rem;
-  background-color: #142850;
-  color: white;
+  background-color: white;
+  color: rgb(0, 0, 120);
   padding: 6px 15px;
   border-radius: 50%;
   position: absolute;
@@ -24,9 +25,13 @@ li > span {
   left: -23px;
 }
 .content {
-  padding-left: 50px;
+  width: 100%;
+  padding: 20px 50px;
+  padding-top: 0;
   color: white;
-  border-left: solid #27496d 3px;
+  border-left: solid white 3px;
+  display: inline-block;
+  margin: 0;
 }
 li:last-child .content {
   border-left: solid transparent 3px;

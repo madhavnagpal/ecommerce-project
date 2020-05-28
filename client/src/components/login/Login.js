@@ -82,7 +82,7 @@ export default function Login({ setLoginStatus }) {
                 placeholder="Enter Password"
               />
             </div>
-            <button onClick={handleLogin} className="btn btn-primary btn-block">
+            <button onClick={handleLogin} className="btn btn-danger btn-block">
               Login
             </button>
           </form>
