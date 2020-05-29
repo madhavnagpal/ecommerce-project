@@ -67,7 +67,7 @@ export default function Register() {
   } else {
     return (
       <div className="row my-5">
-        <div className="col-lg-5 col-md-8 col-10 m-auto">
+        <div className="col-lg-5 col-md-8 col-12 m-auto">
           <div className="card card-body">
             <Errors errors={errors} />
             <Message message={message} />

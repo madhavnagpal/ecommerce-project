@@ -10,7 +10,7 @@
 .main-content {
   position: relative;
   min-height: 100vh;
-  padding-bottom: 30px;
+  padding-bottom: 90px;
 }
 
 .footer {
@@ -18,7 +18,7 @@
   background-image: linear-gradient(90deg, #120136, #035aa6, rgb(41, 184, 184));
   width: 100%;
   position: absolute;
-  bottom: -10px;
+  bottom: 0px;
   text-align: center;
   font-size: 1.2rem;
   padding: 20px;

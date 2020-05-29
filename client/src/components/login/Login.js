@@ -63,7 +63,7 @@ export default function Login() {
   } else {
     return (
       <div className="row mt-5 pb-5 mb-5">
-        <div className="col-lg-5 col-md-8 col-10 mx-auto">
+        <div className="col-lg-5 col-md-8 col-12 mx-auto">
           <div className="card card-body">
             <Errors errors={errors} />
             <h1 className="text-center mb-3">
