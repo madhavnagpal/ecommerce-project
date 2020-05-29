@@ -1,66 +1,43 @@
-import React, { useState, useEffect } from "react";
+import React from "react";
 import { BrowserRouter as Router, Switch, Route } from "react-router-dom";
-import axios from "axios";
 import "./App.css";
 
-import MyNavbar from "./components/navbar/MyNavbar";
+//contexts
+import { LoginProvider } from "./contexts/LoginContext";
+import { ProductsProvider } from "./contexts/ProductsContext";
+import { CartProvider } from "./contexts/CartContext";
+
+//components
+import MyNavbar from "./components/navigation/MyNavbar";
 import Products from "./components/products/Products";
 import Login from "./components/login/Login";
 import Home from "./components/home/Home";
 import Register from "./components/login/Register";
-import Logout from "./components/login/Cart";
+import Cart from "./components/login/Cart";
+import Footer from "./components/navigation/Footer";
 
 export default function App() {
-  const [products, setProducts] = useState([]);
-  const [loggedInStatus, setLoginStatus] = useState({
-    isLoggedIn: false,
-    name: "Guest",
-  });
-
-  useEffect(() => {
-    axios.get("/api/products").then((res) => {
-      setProducts(res.data);
-    });
-    let localLoginStatus = JSON.parse(localStorage.getItem("loggedIn"));
-    if (localLoginStatus) {
-      setLoginStatus(localLoginStatus);
-    }
-  }, []);
-
-  useEffect(() => {
-    localStorage.setItem("loggedIn", JSON.stringify(loggedInStatus));
-  }, [loggedInStatus]);
-
   return (
-    <div className="bigBox">
-      <div className="smallBox">
-        <Router>
-          <MyNavbar loggedInStatus={loggedInStatus} />
-          <Switch>
-            <Route exact path="/">
-              <Home />
-            </Route>
-            <Route path="/products">
-              <Products products={products} />
-            </Route>
-            <Route path="/register">
-              <Register />
-            </Route>
-            <Route path="/cart">
-              <Logout
-                loggedInStatus={loggedInStatus}
-                setLoginStatus={setLoginStatus}
-              />
-            </Route>
-            <Route path="/login">
-              <Login setLoginStatus={setLoginStatus} />
-            </Route>
-          </Switch>
-        </Router>
-      </div>
-      <div className="footer">
-        You Can Contact me via mr.madhavnagpal@gmail.com
-      </div>
+    <div className="App">
+      <Router>
+        <LoginProvider>
+          <CartProvider>
+            <ProductsProvider>
+              <MyNavbar />
+              <div className="main-content">
+                <Switch>
+                  <Route exact path="/" component={Home} />
+                  <Route path="/products" component={Products} />
+                  <Route path="/register" component={Register} />
+                  <Route path="/cart" component={Cart} />
+                  <Route path="/login" component={Login} />
+                </Switch>
+              </div>
+              <Footer />
+            </ProductsProvider>
+          </CartProvider>
+        </LoginProvider>
+      </Router>
     </div>
   );
 }

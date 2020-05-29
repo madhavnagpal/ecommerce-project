@@ -12,7 +12,7 @@ export default function Showcase() {
   );
 }
 const taglineStyle = {
-  background: "rgb(0,0,120)",
+  background: "linear-gradient(90deg, #120136, #035aa6)",
   width: "100%",
   textAlign: "center",
   padding: "20px",

@@ -1,9 +1,13 @@
-import React, { useState } from "react";
+import React, { useState, useContext } from "react";
+import { useHistory } from "react-router-dom";
 import Errors from "./Errors";
 import Message from "./Message";
 import axios from "axios";
+import { LoginContext } from "../../contexts/LoginContext";
 
 export default function Register() {
+  const [loggedInStatus, setLoginStatus] = useContext(LoginContext);
+  const history = useHistory();
   /*  
       inputs   */
   const usernameForm = useFormInput("");
@@ -57,70 +61,75 @@ export default function Register() {
     }
   }
 
-  return (
-    <div className="row my-5">
-      <div className="col-md-6 col-lg-5 m-auto">
-        <div className="card card-body">
-          <Errors errors={errors} />
-          <Message message={message} />
-          <h1 className="text-center mb-3">
-            <i className="fas fa-user-plus"></i> Register
-          </h1>
-          <form>
-            <div className="form-group">
-              <label>Name</label>
-              <input
-                type="name"
-                value={usernameForm.value}
-                onChange={usernameForm.onChange}
-                className="form-control"
-                placeholder="Enter Name"
-              />
-            </div>
-            <div className="form-group">
-              <label>Email</label>
-              <input
-                type="email"
-                value={emailForm.value}
-                onChange={emailForm.onChange}
-                className="form-control"
-                placeholder="Enter Email"
-              />
-            </div>
-            <div className="form-group">
-              <label>Password</label>
-              <input
-                type="password"
-                value={passwordForm.value}
-                onChange={passwordForm.onChange}
-                className="form-control"
-                placeholder="Create Password"
-              />
-            </div>
-            <div className="form-group">
-              <label>Confirm Password</label>
-              <input
-                type="password"
-                value={password2Form.value}
-                onChange={password2Form.onChange}
-                className="form-control"
-                placeholder="Confirm Password"
-              />
-            </div>
-            <button
-              onClick={handelRegistration}
-              className="btn btn-danger btn-block"
-            >
-              Register
-            </button>
-          </form>
-          <p className="lead mt-4">
-            Have An Account? <a href="/login">Login</a>
-          </p>
+  if (loggedInStatus.isLoggedIn) {
+    history.push("/cart");
+    return <></>;
+  } else {
+    return (
+      <div className="row my-5">
+        <div className="col-lg-5 col-md-8 col-10 m-auto">
+          <div className="card card-body">
+            <Errors errors={errors} />
+            <Message message={message} />
+            <h1 className="text-center mb-3">
+              <i className="fas fa-user-plus"></i> Register
+            </h1>
+            <form>
+              <div className="form-group">
+                <label>Name</label>
+                <input
+                  type="name"
+                  value={usernameForm.value}
+                  onChange={usernameForm.onChange}
+                  className="form-control"
+                  placeholder="Enter Name"
+                />
+              </div>
+              <div className="form-group">
+                <label>Email</label>
+                <input
+                  type="email"
+                  value={emailForm.value}
+                  onChange={emailForm.onChange}
+                  className="form-control"
+                  placeholder="Enter Email"
+                />
+              </div>
+              <div className="form-group">
+                <label>Password</label>
+                <input
+                  type="password"
+                  value={passwordForm.value}
+                  onChange={passwordForm.onChange}
+                  className="form-control"
+                  placeholder="Create Password"
+                />
+              </div>
+              <div className="form-group">
+                <label>Confirm Password</label>
+                <input
+                  type="password"
+                  value={password2Form.value}
+                  onChange={password2Form.onChange}
+                  className="form-control"
+                  placeholder="Confirm Password"
+                />
+              </div>
+              <button
+                onClick={handelRegistration}
+                className="btn btn-danger btn-block"
+              >
+                Register
+              </button>
+            </form>
+            <p className="lead mt-4">
+              Have An Account? <a href="/login">Login</a>
+            </p>
+          </div>
         </div>
       </div>
-    </div>
-  );
+    );
+  }
 }
 
 // playing with user input

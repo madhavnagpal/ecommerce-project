@@ -4,21 +4,18 @@
   margin: 0;
   font-family: "Ubuntu", sans-serif;
 }
-body {
+.App {
+  position: relative;
 }
-
-.bigBox {
+.main-content {
   position: relative;
   min-height: 100vh;
-}
-.smallBox {
-  margin: 0;
-  padding-bottom: 100px;
+  padding-bottom: 30px;
 }
 
 .footer {
   color: white;
-  background-color: rgb(0, 0, 120);
+  background-image: linear-gradient(90deg, #120136, #035aa6, rgb(41, 184, 184));
   width: 100%;
   position: absolute;
   bottom: -10px;

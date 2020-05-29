@@ -1,9 +1,11 @@
-import React, { useState } from "react";
+import React, { useState, useContext } from "react";
 import { useHistory } from "react-router-dom";
 import Errors from "./Errors";
 import axios from "axios";
+import { LoginContext } from "../../contexts/LoginContext";
 
-export default function Login({ setLoginStatus }) {
+export default function Login() {
+  const [loggedInStatus, setLoginStatus] = useContext(LoginContext);
   //my lovely hooks
   const emailForm = useFormInput("");
   const passwordForm = useFormInput("");
@@ -35,7 +37,7 @@ export default function Login({ setLoginStatus }) {
               isLoggedIn: true,
               name: res.data.username,
             });
-            history.push("/logout");
+            history.push("/cart");
           } else if (emailFound) {
             allErrors = [
               ...allErrors,
@@ -55,44 +57,52 @@ export default function Login({ setLoginStatus }) {
     }
   }
 
-  return (
-    <div className="row mt-5">
-      <div className="col-md-5 m-auto">
-        <div className="card card-body">
-          <Errors errors={errors} />
-          <h1 className="text-center mb-3">
-            <i className="fas fa-sign-in-alt"></i> Login
-          </h1>
-          <form>
-            <div className="form-group">
-              <label>Email</label>
-              <input
-                type="email"
-                {...emailForm}
-                className="form-control"
-                placeholder="Enter Email"
-              />
-            </div>
-            <div className="form-group">
-              <label>Password</label>
-              <input
-                type="password"
-                {...passwordForm}
-                className="form-control"
-                placeholder="Enter Password"
-              />
-            </div>
-            <button onClick={handleLogin} className="btn btn-danger btn-block">
-              Login
-            </button>
-          </form>
-          <p className="lead mt-4">
-            No Account? <a href="/register">Register</a>
-          </p>
+  if (loggedInStatus.isLoggedIn) {
+    history.push("/cart");
+    return <></>;
+  } else {
+    return (
+      <div className="row mt-5 pb-5 mb-5">
+        <div className="col-lg-5 col-md-8 col-10 mx-auto">
+          <div className="card card-body">
+            <Errors errors={errors} />
+            <h1 className="text-center mb-3">
+              <i className="fas fa-sign-in-alt"></i> Login
+            </h1>
+            <form>
+              <div className="form-group">
+                <label>Email</label>
+                <input
+                  type="email"
+                  {...emailForm}
+                  className="form-control"
+                  placeholder="Enter Email"
+                />
+              </div>
+              <div className="form-group">
+                <label>Password</label>
+                <input
+                  type="password"
+                  {...passwordForm}
+                  className="form-control"
+                  placeholder="Enter Password"
+                />
+              </div>
+              <button
+                onClick={handleLogin}
+                className="btn btn-danger btn-block"
+              >
+                Login
+              </button>
+            </form>
+            <p className="lead mt-4">
+              No Account? <a href="/register">Register</a>
+            </p>
+          </div>
         </div>
       </div>
-    </div>
-  );
+    );
+  }
 }
 
 function useFormInput(initialValue) {

@@ -1,12 +1,12 @@
 .timeline {
   list-style-type: none;
-  width: 80%;
+  width: 100%;
   max-width: 800px;
   margin: 70px auto;
   font-size: 1.5rem;
-  background-color: rgb(0, 0, 120);
-  padding: 30px;
-  padding-left: 50px;
+  background-image: linear-gradient(45deg, #120136, #035aa6, rgb(41, 184, 184));
+  padding: 30px 50px;
+  padding-right: 0px;
   border-radius: 50px;
 }
 li {
@@ -26,8 +26,8 @@ li > span {
 }
 .content {
   width: 100%;
-  padding: 20px 50px;
-  padding-top: 0;
+  padding-left: 40px;
+  padding-bottom: 20px;
   color: white;
   border-left: solid white 3px;
   display: inline-block;
