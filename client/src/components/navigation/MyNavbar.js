@@ -10,17 +10,6 @@ export default function MyNavbar() {
   const history = useHistory();
 
   useEffect(() => {
-    let localLoginStatus = JSON.parse(localStorage.getItem("loggedIn"));
-    if (localLoginStatus) {
-      setLoginStatus(localLoginStatus);
-    }
-    let storedCart = JSON.parse(localStorage.getItem("cart"));
-    if (storedCart) {
-      setCart(storedCart);
-    }
-    console.log("im in useeffect all");
-  }, []);
-  useEffect(() => {
     localStorage.setItem("cart", JSON.stringify(cart));
     console.log("im in useeffect cart");
   }, [cart.length]);
