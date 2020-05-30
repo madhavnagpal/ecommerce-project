@@ -1,37 +1,33 @@
-import React, { useState, useContext, useEffect } from "react";
+import React, { useState, useContext } from "react";
 import Message from "../login/Message";
 import { CartContext } from "../../contexts/CartContext";
+import { LoginContext } from "../../contexts/LoginContext";
 
 export default function ProductItem({ product }) {
+  const [loggedInStatus, setLoginStatus] = useContext(LoginContext);
   const [quantity, setQuantity] = useState(1);
   const [message, setMessage] = useState("");
   const [cart, setCart] = useContext(CartContext);
-
-  useEffect(() => {
-    let storedCart = JSON.parse(localStorage.getItem("cart"));
-    if (storedCart) {
-      setCart(storedCart);
-    }
-  }, []);
-  useEffect(() => {
-    localStorage.setItem("cart", JSON.stringify(cart));
-  }, [cart]);
 
   const handleQuantityChange = (e) => {
     setQuantity(e.target.value);
   };
 
   function handleAddToCart(e) {
-    let itemFound = cart.find((cartItem) => cartItem.id == product.id);
-    if (itemFound) {
-      setMessage("Item Already in Your Cart");
+    if (loggedInStatus.isLoggedIn) {
+      let itemFound = cart.find((cartItem) => cartItem.id == product.id);
+      if (itemFound) {
+        setMessage("Item Already in Your Cart");
+      } else {
+        let newCartItem = {
+          ...product,
+          quantity,
+        };
+        setCart((oldCart) => [...oldCart, newCartItem]);
+        setMessage("Item Added To Your Cart");
+      }
     } else {
-      let newCartItem = {
-        ...product,
-        quantity,
-      };
-      setCart((oldCart) => [...oldCart, newCartItem]);
-      setMessage("Item Added To Your Cart");
+      setMessage("Please Login to your account first!");
     }
   }
   return (

@@ -9,30 +9,11 @@ export default function Cart() {
   const [cart, setCart] = useContext(CartContext);
   const history = useHistory();
 
-  useEffect(() => {
-    let storedCart = JSON.parse(localStorage.getItem("cart"));
-    console.log("im in useffect");
-    if (storedCart) {
-      setCart(storedCart);
-    }
-  }, []);
-  useEffect(() => {
-    let storedCart = JSON.parse(localStorage.getItem("cart"));
-    let updatedCart;
-    if (!cart && storedCart) {
-      updatedCart = storedCart;
-    } else {
-      updatedCart = cart;
-    }
-    localStorage.setItem("cart", JSON.stringify(updatedCart));
-    setCart(updatedCart);
-  }, [cart]);
-
   if (loggedInStatus.isLoggedIn) {
     return (
       <div className="container my-3 border border-primary  rounded">
         <h3 className="text-capitalize">Welcome {loggedInStatus.name} !</h3>
-        <div className="row">
+        <div className="">
           {cart.map((cartItem) => (
             <CartItem key={cartItem.id} cartItem={cartItem} />
           ))}

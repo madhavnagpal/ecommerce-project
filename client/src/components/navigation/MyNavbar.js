@@ -1,17 +1,29 @@
 import React, { useEffect, useContext } from "react";
 import { Link, useHistory } from "react-router-dom";
 import { LoginContext } from "../../contexts/LoginContext";
+import { CartContext } from "../../contexts/CartContext";
 import styled from "styled-components";
 
 export default function MyNavbar() {
   const [loggedInStatus, setLoginStatus] = useContext(LoginContext);
+  const [cart, setCart] = useContext(CartContext);
   const history = useHistory();
+
   useEffect(() => {
     let localLoginStatus = JSON.parse(localStorage.getItem("loggedIn"));
     if (localLoginStatus) {
       setLoginStatus(localLoginStatus);
     }
+    let storedCart = JSON.parse(localStorage.getItem("cart"));
+    if (storedCart) {
+      setCart(storedCart);
+    }
+    console.log("im in useeffect all");
   }, []);
+  useEffect(() => {
+    localStorage.setItem("cart", JSON.stringify(cart));
+    console.log("im in useeffect cart");
+  }, [cart.length]);
 
   useEffect(() => {
     localStorage.setItem("loggedIn", JSON.stringify(loggedInStatus));
